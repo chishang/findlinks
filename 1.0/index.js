@@ -168,7 +168,7 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             var self = this;
             var input = self.get('doms.input');
             var text = typeof (text) === 'undefined' ? S.trim(input.val()) : S.trim(text);
-            if (text === '') {
+            if (text === EMPTY) {
                 self.set('result', null);
                 return;
             }
@@ -228,7 +228,7 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
         showFocusResult: function (node) {
             var self = this;
             self.scrollTo(node);
-            self.focusNode(node)
+            self.focusNode(node) ;
         },
         showAllResults: function () {
             var self = this;
@@ -322,7 +322,7 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
 
     }, {ATTRS: /** @lends FindLinks*/{
         ico: {
-            value: ""
+            value: EMPTY
         },
         position: {
             value: [20, 10]
