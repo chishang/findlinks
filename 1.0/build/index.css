@@ -1,0 +1,112 @@
+.findlinks-container{
+    position: fixed;
+    right: 100px;
+    top: 20px;
+    height: 50px;
+    width: 40px;
+    border:1px solid #eee;
+    _position:absolute;
+}
+
+.findlinks-container .found-ico{
+    position: absolute;
+    top:15px;
+    right: 12px;
+    height: 20px;
+    width: 16px;
+    line-height: 20px;
+    background: url('http://gtms03.alicdn.com/tps/i3/T1Q5mNFkpXXXXt8j_X-16-20.png') no-repeat 0px 0px;
+    z-index: 3;
+    cursor: pointer;
+}
+.findlinks-insearch .found-ico{
+    cursor: default;
+}
+.findlinks-container .found-des{
+    position: absolute;
+    right:-1px;
+    top:-1px;
+    width:100px;
+    padding-right: 20px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    border:1px solid #cfcfcf;
+    background: #fff;
+    cursor: pointer;
+    color: #6c6c6c;
+    text-align: center;
+    z-index: 2;
+}
+
+.findlinks-container .hidden {
+    display: none;
+}
+.findlinks-container .found-search{
+    position: absolute;
+    right:0;
+    top:0;
+    width:345px;
+    height:36px;
+    padding:4px  0  8px 8px;
+    border:1px solid #cfcfcf;
+    background: #eeefef;
+    margin:0;
+    z-index: 4;
+    cursor: default;
+}
+
+.findlinks-container .found-down,.findlinks-container .found-up,.findlinks-container .found-close{
+    text-decoration: none;
+    display: inline-block;
+    width: 30px;
+    height: 38px;
+    line-height: 38px;
+    margin: 0px;
+    background: url('http://gtms04.alicdn.com/tps/i4/T1R2OKFc4gXXablETt-99-50.png') no-repeat 5px -5px;
+}
+.findlinks-container .found-down{
+    background-position: -3px -5px;
+}
+.findlinks-container .found-up{
+    background-position: -31px -5px;
+}
+.findlinks-container .found-close{
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    right: 18px;
+    top: 18px;
+    background-position: -73px -19px;
+}
+.findlinks-container .found-input{
+    height:34px;
+    padding:0;
+    border: 1px solid #e8e8e8;
+    width:236px;
+    padding-left: 5px;
+    outline: none;
+    margin-top: -1px;
+}
+.findlinks-container .found-input:focus{
+    border-color:#9dc3e7;
+
+}
+.findlinks-ico{
+    position: absolute;
+    width:16px;
+    height:20px;
+    background: url('http://gtms03.alicdn.com/tps/i3/T1Q5mNFkpXXXXt8j_X-16-20.png') no-repeat 0px 0px;
+    display: none;
+    z-index: 100001;
+}
+
+.findlinks-href{
+    background: red!important;
+    color:#fff !important;
+}
+.findlinks-href-focus{
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+}

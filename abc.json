@@ -1,0 +1,14 @@
+{
+    "name": "findlinks",
+    "version": "1.0",
+    "desc": "查找页面入口。主要功能和Chrome的搜索功能相似，但给用户查找的只是a标签中的内容，以方便用户快速找到链接并点击",
+    "cover": "http://gtms04.alicdn.com/tps/i4/T16NKLFgFeXXbBIAI9-125-50.png",
+    "tag":"",
+    "author": {
+        "name": "chishang.lcw",
+        "email": "chishang.lcw@gmail.com",
+        "page": "http://chishang.github.io/"
+    },
+    "type": "kissy-gallery",
+    "type-url": "http://gallery.kissyui.com/guide"
+}
