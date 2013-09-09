@@ -1,3 +1,3 @@
 config({
-    'gallery/findlinks/index': {requires: ['node','base']}
+    'gallery/findlinks/index': {requires: ['node', 'base']}
 });
