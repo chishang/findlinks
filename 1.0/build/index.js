@@ -35,9 +35,7 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
     S.extend(FindLinks, Base, /** @lends FindLinks.prototype*/{
         init: function () {
             var self = this;
-            if (S.UA.IE && S.UA.IE === 6) {
-                return;
-            }
+
             self._createUI();
             self._bindUI();
             self._bindModelChange();
@@ -63,15 +61,14 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
                 self.setBtnState();
             });
             self.on('beforeCloneNodeChange', function () {
-                var cloneNode = self.get('cloneNode');
-                cloneNode && cloneNode.remove();
+                self._removeCloneNode();
             });
 
         },
         _createUI: function () {
             var self = this;
             var node = S.DOM.create('<div >' +
-                '<div class="findlinks-icowrap J_FindLinks_Ico" data-action="search"><span class="findlinks-ico"  data-action="search">&nbsp;</span></div>' +
+                '<div class="findlinks-icowrap J_FindLinks_Ico" data-action="search" ><span class="findlinks-ico"  data-action="search">&nbsp;</span></div>' +
                 '<span class="J_FindLinks_Click findlinks-des" data-action="search">我要找入口</span>' +
                 '<div class="J_FindLinks_Search findlinks-noresult findlinks-search  hidden" >' +
                 '<input class="J_FindLinks_Input findlinks-input" id="findlinks-input" placeholder="在首页找入口"/>' +
@@ -85,6 +82,7 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
                 '</div>', {
                 href: '#',
                 id: S.guid('J_FindLinks_'),
+                title: '通过这个功能，您不仅能快速找到需要的链接，还能在左上角发现被埋藏的入口哦！',
                 "class": 'findlinks-container'
             });
             var focusIco = S.DOM.create('<div></div>', {
@@ -97,12 +95,13 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             body.append(node);
             body.append(focusIco);
             var container = S.one(node);
+            container.css('top',self.get('top'));
             var search = container.one('.J_FindLinks_Search');
             var click = container.one('.J_FindLinks_Click');
             var hover = container.one('.J_FindLinks_Hover');
             var input = container.one('.J_FindLinks_Input');
             var ico = container.one('.J_FindLinks_Ico');
-            var index =   container.one('.J_FindLinks_Index');
+            var index = container.one('.J_FindLinks_Index');
             var total = container.one('.J_FindLinks_Total');
             var up = container.one('.J_FindLinks_Up');
             var down = container.one('.J_FindLinks_Down');
@@ -114,10 +113,10 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
                 input: input,
                 ico: ico,
                 focusIco: S.one(focusIco),
-                total:total,
-                index:index ,
-                up:up,
-                down:down
+                total: total,
+                index: index,
+                up: up,
+                down: down
             });
         },
 
@@ -129,6 +128,12 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             container.delegate('click', '.J_FindLinks_Click', self._handleClick, self);
             container.delegate('keyup', '.J_FindLinks_Input', self._handleKeyup, self);
             container.delegate('keydown', '.J_FindLinks_Input', self._handleKeydown, self);
+            if (S.UA.IE && S.UA.IE === 6) {
+                var win = S.one(window);
+                win.on('scroll',function(e){
+                    container.css('top', S.DOM.scrollTop(win)+self.get('top')) ;
+                });
+           }
         },
         _handleIcoHover: function () {
             var self = this;
@@ -194,8 +199,8 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             var text = typeof (text) === 'undefined' ? S.trim(input.val()) : S.trim(text);
             if (text === EMPTY) {
                 self.set('result', null);
-                self.set('total',0);
-                self.set('index',0);
+                self.set('total', 0);
+                self.set('index', 0);
                 self.setTotalNumber();
                 self.setIndexNumber();
                 self.setBtnState();
@@ -203,7 +208,7 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             }
             var selector = 'body a:contains("' + text + '")';
             var result = $(selector);
-            self.set('total',result.length);
+            self.set('total', result.length);
             self.set('result', result);
             self.set('index', 0);
         },
@@ -221,17 +226,10 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
                 if (node) {
                     var display = node.css('display');
                     var visibility = node.css('visibility');
-                    if (display === 'none' || visibility === 'hidden') {
-                        var prevIndex = self.get('prevIndex');
-                        if (prevIndex <= index) {
-                            self.findNext();
-                        } else {
-                            self.findPrev();
-                        }
-                    } else {
-                        self.showFocusResult(node);
-                    }
+                    var width = node.css('width');
+                    var height = node.css('height');
 
+                    self.showFocusResult(node);
                 } else {
                     index--;
                     self.set('index', index);
@@ -256,7 +254,7 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
         showFocusResult: function (node) {
             var self = this;
             self._scrollTo(node);
-            self._focusNode(node) ;
+            self._focusNode(node);
         },
         showAllResults: function () {
             var self = this;
@@ -273,42 +271,42 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             }
             self._hideIco();
         },
-        setTotalNumber:function(){
-             var self = this;
-             var node = self.get('doms.total') ;
-             var total = self.get('total');
-             node.html(total);
-        },
-        setIndexNumber:function(){
+        setTotalNumber: function () {
             var self = this;
-            var node = self.get('doms.index') ;
+            var node = self.get('doms.total');
+            var total = self.get('total');
+            node.html(total);
+        },
+        setIndexNumber: function () {
+            var self = this;
+            var node = self.get('doms.index');
             var index = self.get('index');
             var total = self.get('total');
-            var showindex = total>0?index+1:0;
+            var showindex = total > 0 ? index + 1 : 0;
             node.html(showindex);
         },
-        setBtnState:function(){
+        setBtnState: function () {
             var self = this;
             var search = self.get('doms.search');
             var up = self.get('doms.up');
             var down = self.get('doms.down');
             var total = self.get('total');
             var index = self.get('index');
-            if(total===0){
-               search.addClass('findlinks-noresult');
-            }else{
+            if (total === 0) {
+                search.addClass('findlinks-noresult');
+            } else {
                 search.removeClass('findlinks-noresult');
             }
-            if(index === 0){
-               up.addClass('findlinks-noupresult');
+            if (index === 0) {
+                up.addClass('findlinks-noupresult');
 
-            }else{
+            } else {
                 up.removeClass('findlinks-noupresult');
             }
-            if(index === total-1){
+            if (index === total - 1) {
                 down.addClass('findlinks-nodownresult');
 
-            }else{
+            } else {
                 down.removeClass('findlinks-nodownresult');
             }
         },
@@ -321,31 +319,41 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
         _focusNode: function (node) {
             var self = this;
             self._showIco(node);
-            var cloneNode = node.clone(true);
-            cloneNode.appendTo('body');
-            self.set('_focusNode', cloneNode);
-            var position = node.offset();
-            cloneNode.css({
-                position: 'absolute',
-                left: position.left,
-                top: position.top,
-                display: 'block',
-                fontSize:node.css('fontSize')
-            });
-            self.set('cloneNode', cloneNode);
-            cloneNode.show();
-            S.later(function () {
-                cloneNode.addClass('findlinks-href-focus');
-            }, 100);
+            node.addClass('findlinks-href-now');
+            if(!S.UA.IE){
+                var cloneNode = node.clone(true);
+                cloneNode.appendTo('body');
+                var position = node.offset();
+                cloneNode.css({
+                    position: 'absolute',
+                    left: position.left,
+                    top: position.top,
+                    display: 'block',
+                    fontSize: node.css('fontSize'),
+                    lineHeight: node.css('lineHeight'),
+                    padding: node.css('padding')
+                });
+                self.set('cloneNode', cloneNode);
+                cloneNode.show();
+                S.later(function () {
+                    cloneNode.addClass('findlinks-href-focus');
+                }, 100);
+            }
+
+            self.set('focusNode', node);
 
         },
         _showIco: function (target) {
             var self = this;
             var position = target.offset();
             var focusIco = self.get('doms.focusIco');
+            var left = position.left - 8;
+            var top = position.top - 21;
+            top = top < 0 ? position.top : top;
+            left = top < 0 ? position.left : left - 10;
             focusIco.css({
-                left: position.left - 8,
-                top: position.top - 21,
+                left: left,
+                top: top,
                 display: 'block'
             });
         },
@@ -353,6 +361,13 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             var self = this;
             var focusIco = self.get('doms.focusIco');
             focusIco.hide();
+        },
+        _removeCloneNode: function () {
+            var self = this;
+            var cloneNode = self.get('cloneNode');
+            cloneNode && cloneNode.remove();
+            var focusNode = self.get('focusNode');
+            focusNode && focusNode.removeClass('findlinks-href-now');
         },
         _handleSearch: function () {
             var self = this;
@@ -364,13 +379,16 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             var doms = self.get('doms');
             var container = doms.container;
             var click = doms.click;
-            function show(){
-                  click.fadeIn();
+
+            function show() {
+                click.fadeIn();
             }
-            function hide(){
+
+            function hide() {
 
             }
-            isShow ? show(): click.fadeOut(0.5);
+
+            isShow ? show() : click.fadeOut(0.5);
         },
         _toggleSearch: function (isShow) {
             var self = this;
@@ -378,7 +396,7 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             var container = doms.container;
             var search = doms.search;
             if (isShow) {
-                search.fadeIn(0.6);
+                search.fadeIn(0.3);
             } else {
                 search.fadeOut(0.5);
                 var container = self.get('doms.container');
@@ -388,7 +406,7 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
                     S.later(function () {
                         container.delegate('mouseover', '.J_FindLinks_Ico', self._handleIcoHover, self);
                         container.undelegate('click', '.J_FindLinks_Ico', self._handleClick, self);
-                    },500);
+                    }, 500);
                 });
 
             }
@@ -413,8 +431,17 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
         prevIndex: {
             value: 0
         },
-        total:{
-            value:0
+        total: {
+            value: 0
+        },
+        cloneNode:{
+            value:null
+        },
+        focusNode:{
+            value:null
+        },
+        top:{
+            value:278
         }
     }});
     return FindLinks;

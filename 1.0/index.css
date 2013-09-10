@@ -1,9 +1,15 @@
 .findlinks-container {
     position: fixed;
     right: 10px;
-    top: 20px;
+    top: 278px;
     height: 52px;
     width: 42px;
+    z-index: 10002;
+    position:absolute;
+}
+
+.findlinks-container a, .findlinks-container a :hover {
+    text-decoration: none;
 }
 
 .findlinks-icowrap {
@@ -11,7 +17,9 @@
     width: 40px;
     cursor: pointer;
     border: 1px solid #eee;
+    background: #fff;
 }
+
 .findlinks-ico {
     position: absolute;
     top: 17px;
@@ -23,12 +31,11 @@
     display: none;
     z-index: 100001;
 }
+
 .findlinks-container  .findlinks-ico {
     z-index: 3;
     display: block;
 }
-
-
 
 .findlinks-des {
     position: absolute;
@@ -74,23 +81,33 @@
     line-height: 38px;
     margin: 0px;
     background: url('http://gtms01.alicdn.com/tps/i1/T1oQ1NFdRcXXc1MEEf-102-120.png') no-repeat 5px -5px;
+    *position:relative;
+    *top:-8px;
 }
-.findlinks-down{
+
+.findlinks-down {
     background-position: -4px -39px;
 }
-.findlinks-down:hover{
+
+.findlinks-down:hover {
     background-position: -5px -79px;
 }
-.findlinks-noresult .findlinks-down ,.findlinks-noresult .findlinks-down:hover,.findlinks-nodownresult,.findlinks-nodownresult:hover{
+
+.findlinks-noresult .findlinks-down, .findlinks-noresult .findlinks-down:hover, .findlinks-nodownresult, .findlinks-nodownresult:hover {
+    cursor: default;
     background-position: -4px 0px;
 }
-.findlinks-up{
+
+.findlinks-up {
     background-position: -34px -39px;
 }
+
 .findlinks-up:hover {
     background-position: -35px -79px;
 }
-.findlinks-noresult .findlinks-up ,.findlinks-noresult .findlinks-up:hover,.findlinks-noupresult,.findlinks-noupresult:hover{
+
+.findlinks-noresult .findlinks-up, .findlinks-noresult .findlinks-up:hover, .findlinks-noupresult, .findlinks-noupresult:hover {
+    cursor: default;
     background-position: -35px 0px;
 }
 
@@ -102,10 +119,12 @@
     top: 6px;
     background-position: -68px -41px;
 }
-.findlinks-close:hover{
+
+.findlinks-close:hover {
     background-position: -69px -81px;
 }
-.findlinks-numbers{
+
+.findlinks-numbers {
     color: #CCCCCC;
     background: #fff;
     height: 32px;
@@ -116,6 +135,7 @@
     width: 100px;
     text-align: right;
 }
+
 .findlinks-input {
     padding: 10px 0 10px 5px;
     height: 14px;
@@ -124,8 +144,8 @@
     width: 236px;
     outline: none;
     margin-top: -1px;
-    *position:relative;
-    *top:1px;
+    *position: relative;
+    *top: 1px;
     background: #fff;
 }
 
@@ -134,39 +154,76 @@
 
 }
 
-
-
 .findlinks-href {
+    background: #ffff00 !important;
+    color: #999 !important;
+    border-radius: 3px;
+}
+
+.findlinks-href-now {
     background: red !important;
     color: #fff !important;
     border-radius: 3px;
 }
 
-
 @-webkit-keyframes pulse {
-    0% { -webkit-transform: scale(1); }
-    50% { -webkit-transform: scale(1.2); }
-    100% { -webkit-transform: scale(1); }
+    0% {
+        -webkit-transform: scale(1);
+    }
+    50% {
+        -webkit-transform: scale(1.2);
+    }
+    100% {
+        -webkit-transform: scale(1);
+    }
 }
+
 @-moz-keyframes pulse {
-    0% { -moz-transform: scale(1); }
-    50% { -moz-transform: scale(1.2); }
-    100% { -moz-transform: scale(1); }
+    0% {
+        -moz-transform: scale(1);
+    }
+    50% {
+        -moz-transform: scale(1.2);
+    }
+    100% {
+        -moz-transform: scale(1);
+    }
 }
+
 @-ms-keyframes pulse {
-    0% { -ms-transform: scale(1); }
-    50% { -ms-transform: scale(1.2); }
-    100% { -ms-transform: scale(1); }
+    0% {
+        -ms-transform: scale(1);
+    }
+    50% {
+        -ms-transform: scale(1.2);
+    }
+    100% {
+        -ms-transform: scale(1);
+    }
 }
+
 @-o-keyframes pulse {
-    0% { -o-transform: scale(1); }
-    50% { -o-transform: scale(1.2); }
-    100% { -o-transform: scale(1); }
+    0% {
+        -o-transform: scale(1);
+    }
+    50% {
+        -o-transform: scale(1.2);
+    }
+    100% {
+        -o-transform: scale(1);
+    }
 }
+
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .findlinks-href-focus {
@@ -185,8 +242,9 @@
     -ms-animation-name: pulse;
     -o-animation-name: pulse;
     animation-name: pulse;
-    z-index: 10001;
-    padding: 1px 2px;
+    background: red !important;
+    color: #fff !important;
+    z-index: 100001;
 }
 
 @-webkit-keyframes rollOut {
@@ -248,7 +306,6 @@
         transform: translateX(100%) rotate(120deg);
     }
 }
-
 
 .rollOut {
     -webkit-backface-visibility: hidden;
