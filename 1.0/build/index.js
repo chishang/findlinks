@@ -1,4 +1,10 @@
 /*
+combined files : 
+
+gallery/findlinks/1.0/index
+
+*/
+/*
  combined files :
 
  gallery/findlinks/1.0/index
@@ -32,22 +38,29 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             if (S.UA.IE && S.UA.IE === 6) {
                 return;
             }
-            self.createUI();
-            self.bindUI();
-            self.bindEvent();
+            self._createUI();
+            self._bindUI();
+            self._bindModelChange();
         },
-        bindEvent: function () {
+        _bindModelChange: function () {
             var self = this;
             self.on('afterResultChange', function () {
-                self.set('cloneNode', null);
-                self.set('index', 0);
                 self.showAllResults();
+                self.setTotalNumber();
+                self.setIndexNumber();
+                self.setBtnState();
+
             });
             self.on('beforeResultChange', function () {
+                self.set('cloneNode', null);
                 self.hideAllResults();
             });
             self.on('beforeIndexChange', function () {
                 self.set('prevIndex', self.get('index'));
+            });
+            self.on('afterIndexChange', function () {
+                self.setIndexNumber();
+                self.setBtnState();
             });
             self.on('beforeCloneNodeChange', function () {
                 var cloneNode = self.get('cloneNode');
@@ -55,77 +68,89 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             });
 
         },
-        createUI: function () {
+        _createUI: function () {
             var self = this;
             var node = S.DOM.create('<div >' +
-                '<div class="ico-wrap"><span class="found-ico">&nbsp;</span></div>' +
-                '<span class="J_FindLinks_Click hidden found-des" data-action="search">我要找入口</span>' +
-                '<div class="J_FindLinks_Search found-search  hidden" >' +
-                '<input class="J_FindLinks_Input found-input" placeholder="在首页找入口"/>' +
-                '<a href="jasvasript:void(0);"  class="found-down J_FindLinks_Up J_FindLinks_Click" data-action="down">&nbsp;</a>' +
-                '<a href="jasvasript:void(0);" class="found-up J_FindLinks_Down J_FindLinks_Click" data-action="up">&nbsp;</a>' +
-                '<a href="jasvasript:void(0);"  class="found-close J_FindLinks_Close  J_FindLinks_Click" data-action="close">&nbsp;</a>' +
+                '<div class="findlinks-icowrap J_FindLinks_Ico" data-action="search"><span class="findlinks-ico"  data-action="search">&nbsp;</span></div>' +
+                '<span class="J_FindLinks_Click findlinks-des" data-action="search">我要找入口</span>' +
+                '<div class="J_FindLinks_Search findlinks-noresult findlinks-search  hidden" >' +
+                '<input class="J_FindLinks_Input findlinks-input" id="findlinks-input" placeholder="在首页找入口"/>' +
+                '<label class="findlinks-numbers" for="findlinks-input">' +
+                '第<span class="J_FindLinks_Index">0</span>条，共<span class="J_FindLinks_Total">0</span>条' +
+                '</label>' +
+                '<a href="jasvasript:void(0);"  class="findlinks-down J_FindLinks_Down J_FindLinks_Click" data-action="down">&nbsp;</a>' +
+                '<a href="jasvasript:void(0);" class="findlinks-up  J_FindLinks_Up J_FindLinks_Click" data-action="up">&nbsp;</a>' +
+                '<a href="jasvasript:void(0);"  class="findlinks-close J_FindLinks_Close  J_FindLinks_Click" data-action="close">&nbsp;</a>' +
                 '</div>' +
                 '</div>', {
                 href: '#',
-                title: '查找入口',
                 id: S.guid('J_FindLinks_'),
-                class: 'findlinks-container'
+                "class": 'findlinks-container'
             });
-            var icoNode = S.DOM.create('<div></div>', {
+            var focusIco = S.DOM.create('<div></div>', {
                 href: '#',
                 title: '找到了',
                 id: S.guid('J_FindLinks_'),
-                class: 'findlinks-ico'
+                "class": 'findlinks-ico'
             });
             var body = S.one('body');
             body.append(node);
-            body.append(icoNode);
+            body.append(focusIco);
             var container = S.one(node);
             var search = container.one('.J_FindLinks_Search');
             var click = container.one('.J_FindLinks_Click');
             var hover = container.one('.J_FindLinks_Hover');
             var input = container.one('.J_FindLinks_Input');
+            var ico = container.one('.J_FindLinks_Ico');
+            var index =   container.one('.J_FindLinks_Index');
+            var total = container.one('.J_FindLinks_Total');
+            var up = container.one('.J_FindLinks_Up');
+            var down = container.one('.J_FindLinks_Down');
             self.set('doms', {
                 container: container,
                 search: search,
                 click: click,
                 hover: hover,
                 input: input,
-                icoNode: S.one(icoNode)
+                ico: ico,
+                focusIco: S.one(focusIco),
+                total:total,
+                index:index ,
+                up:up,
+                down:down
             });
         },
 
-        bindUI: function () {
+        _bindUI: function () {
             var self = this;
             var doms = self.get('doms');
             var container = doms.container;
-            container.on('mouseover', self.handleIcoHover, self);
-            container.delegate('click', '.J_FindLinks_Click', self.handleClick, self);
-            container.delegate('keyup', '.J_FindLinks_Input', self.handleKeyup, self);
-            container.delegate('keydown', '.J_FindLinks_Input', self.handleKeydown, self);
+            container.delegate('mouseover', '.J_FindLinks_Ico', self._handleIcoHover, self);
+            container.delegate('click', '.J_FindLinks_Click', self._handleClick, self);
+            container.delegate('keyup', '.J_FindLinks_Input', self._handleKeyup, self);
+            container.delegate('keydown', '.J_FindLinks_Input', self._handleKeydown, self);
         },
-        handleIcoHover: function () {
+        _handleIcoHover: function () {
             var self = this;
-            self.toggleClick(true);
+            self._toggleClick(true);
             var container = self.get('doms.container');
-            container.detach('mouseover', self.handleIcoHover, self);
-            container.addClass('findlinks-insearch');
+            container.undelegate('mouseover', '.J_FindLinks_Ico', self._handleIcoHover, self);
+            container.delegate('click', '.J_FindLinks_Ico', self._handleClick, self);
         },
-        handleClick: function (e) {
+        _handleClick: function (e) {
             e.halt();
             var self = this;
             var target = S.one(e.target);
             var action = target.attr('data-action');
             switch (action) {
                 case 'search':
-                    self.toggleClick(false);
-                    self.toggleSearch(true);
+                    self._toggleClick(false);
+                    self._toggleSearch(true);
                     break;
                 case 'close':
-                    self.toggleClick(false);
-                    self.toggleSearch(false);
-                    self.hideAllResults();
+                    self._toggleClick(false);
+                    self._toggleSearch(false);
+                    self.set('result', null);
                     break;
                 case 'up':
                     self.findPrev();
@@ -138,17 +163,18 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             }
 
         },
-        handleKeyup: function (e) {
+        _handleKeyup: function (e) {
             var self = this;
             var target = S.one(e.target);
             var keyCode = e.keyCode;
             if (keyCode == 13 || keyCode == 37 || keyCode == 38 || keyCode == 39 || keyCode == 40) {
                 return;
             }
-            self.setResult();
+            var text = target.val();
+            self.setResult(text);
             self.search();
         },
-        handleKeydown: function (e) {
+        _handleKeydown: function (e) {
             var self = this;
             var keyCode = e.keyCode;
             if (keyCode == 13 || keyCode == 40) {
@@ -160,23 +186,28 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
         },
         search: function () {
             var self = this;
-            self.findResult();
+            self._findResult();
         },
-        setResult: function () {
+        setResult: function (text) {
             var self = this;
             var input = self.get('doms.input');
-            var text = S.trim(input.val());
-            if (text === '') {
+            var text = typeof (text) === 'undefined' ? S.trim(input.val()) : S.trim(text);
+            if (text === EMPTY) {
                 self.set('result', null);
+                self.set('total',0);
+                self.set('index',0);
+                self.setTotalNumber();
+                self.setIndexNumber();
+                self.setBtnState();
                 return;
             }
-            var selector = "body a:contains(" + text + ")";
-            console.time('find');
+            var selector = 'body a:contains("' + text + '")';
             var result = $(selector);
-            console.timeEnd('find');
+            self.set('total',result.length);
             self.set('result', result);
+            self.set('index', 0);
         },
-        findResult: function () {
+        _findResult: function () {
             var self = this;
             var result = self.get('result');
             var index = self.get('index');
@@ -213,19 +244,19 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             var index = self.get('index');
             index--;
             self.set('index', index);
-            var isfind = self.findResult();
+            var isfind = self._findResult();
         },
         findNext: function () {
             var self = this;
             var index = self.get('index');
             index++;
             self.set('index', index);
-            self.findResult();
+            self._findResult();
         },
         showFocusResult: function (node) {
             var self = this;
-            self.scrollTo(node);
-            self.focusNode(node)
+            self._scrollTo(node);
+            self._focusNode(node) ;
         },
         showAllResults: function () {
             var self = this;
@@ -240,68 +271,108 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             if (result && result.addClass) {
                 result.removeClass('findlinks-href');
             }
-            self.hideIco();
+            self._hideIco();
         },
-        scrollTo: function (node) {
+        setTotalNumber:function(){
+             var self = this;
+             var node = self.get('doms.total') ;
+             var total = self.get('total');
+             node.html(total);
+        },
+        setIndexNumber:function(){
+            var self = this;
+            var node = self.get('doms.index') ;
+            var index = self.get('index');
+            var total = self.get('total');
+            var showindex = total>0?index+1:0;
+            node.html(showindex);
+        },
+        setBtnState:function(){
+            var self = this;
+            var search = self.get('doms.search');
+            var up = self.get('doms.up');
+            var down = self.get('doms.down');
+            var total = self.get('total');
+            var index = self.get('index');
+            if(total===0){
+               search.addClass('findlinks-noresult');
+            }else{
+                search.removeClass('findlinks-noresult');
+            }
+            if(index === 0){
+               up.addClass('findlinks-noupresult');
+
+            }else{
+                up.removeClass('findlinks-noupresult');
+            }
+            if(index === total-1){
+                down.addClass('findlinks-nodownresult');
+
+            }else{
+                down.removeClass('findlinks-nodownresult');
+            }
+        },
+        _scrollTo: function (node) {
             var self = this;
             if (node) {
                 window.scrollTo(0, node.offset().top - 30);
             }
         },
-        focusNode: function (node) {
+        _focusNode: function (node) {
             var self = this;
-            self.showIco(node);
-            node.addClass('findlinks-href');
+            self._showIco(node);
             var cloneNode = node.clone(true);
             cloneNode.appendTo('body');
-            self.set('focusNode', cloneNode);
+            self.set('_focusNode', cloneNode);
             var position = node.offset();
             cloneNode.css({
                 position: 'absolute',
                 left: position.left,
                 top: position.top,
-                display: 'none'
+                display: 'block',
+                fontSize:node.css('fontSize')
             });
-            cloneNode.fadeIn();
+            self.set('cloneNode', cloneNode);
+            cloneNode.show();
             S.later(function () {
-                cloneNode.fadeOut(0.5, function () {
-                    cloneNode.remove();
-                });
+                cloneNode.addClass('findlinks-href-focus');
+            }, 100);
 
-            }, 200)
         },
-        showIco: function (target) {
+        _showIco: function (target) {
             var self = this;
             var position = target.offset();
-            var icoNode = self.get('doms.icoNode');
-            icoNode.css({
+            var focusIco = self.get('doms.focusIco');
+            focusIco.css({
                 left: position.left - 8,
                 top: position.top - 21,
                 display: 'block'
             });
         },
-        hideIco: function () {
+        _hideIco: function () {
             var self = this;
-            var icoNode = self.get('doms.icoNode');
-            icoNode.hide();
-
+            var focusIco = self.get('doms.focusIco');
+            focusIco.hide();
         },
-        removeCloneNode: function () {
-
-        },
-        handleSearch: function () {
+        _handleSearch: function () {
             var self = this;
             var doms = self.get('doms');
             var container = doms.container;
         },
-        toggleClick: function (isShow) {
+        _toggleClick: function (isShow) {
             var self = this;
             var doms = self.get('doms');
             var container = doms.container;
             var click = doms.click;
-            isShow ? click.fadeIn(0.3) : click.fadeOut(0.5);
+            function show(){
+                  click.fadeIn();
+            }
+            function hide(){
+
+            }
+            isShow ? show(): click.fadeOut(0.5);
         },
-        toggleSearch: function (isShow) {
+        _toggleSearch: function (isShow) {
             var self = this;
             var doms = self.get('doms');
             var container = doms.container;
@@ -311,20 +382,19 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             } else {
                 search.fadeOut(0.5);
                 var container = self.get('doms.container');
-                container.removeClass('findlinks-insearch');
-                S.later(function () {
-                    container.on('mouseover', self.handleIcoHover, self);
-                }, 1000);
+                var ico = self.get('doms.ico');
+                ico.hide();
+                ico.fadeIn(1, function () {
+                    S.later(function () {
+                        container.delegate('mouseover', '.J_FindLinks_Ico', self._handleIcoHover, self);
+                        container.undelegate('click', '.J_FindLinks_Ico', self._handleClick, self);
+                    },500);
+                });
+
             }
         }
 
     }, {ATTRS: /** @lends FindLinks*/{
-        ico: {
-            value: ""
-        },
-        position: {
-            value: [20, 10]
-        },
         doms: {
             value: {
 
@@ -342,10 +412,14 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
         },
         prevIndex: {
             value: 0
+        },
+        total:{
+            value:0
         }
     }});
     return FindLinks;
-}, {requires: ['node', 'base', 'anim', 'event', 'sizzle', './index-min.css']});
+}, {requires: ['node', 'base', 'anim', 'event', 'sizzle', './index.css']});
+
 
 
 

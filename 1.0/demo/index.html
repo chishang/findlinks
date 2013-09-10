@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="http://g.tbcdn.cn/kissy/k/1.3.0/css/dpl/base-min.css">
 </head>
 <body>
-<body data-spm="1000386" ryt12108="1">
+<body data-spm="1000386" ryt12108="1" >
 
 <div id="J_Page" style="padding:100px; overflow: hidden">
 
@@ -2380,6 +2380,57 @@
     </div>
     <div class="rich-select-footer " style="display:none;"></div>
 </div>
+   <style>
+       .feedback {
+           bottom: 50px;
+           position: fixed;
+           right: 10px;
+       }
+       .feedback a {
+           background: none repeat scroll 0 0 whitesmoke;
+           border: 1px solid #D9D9D9;
+           clear: both;
+           color: #9C9C9C;
+           display: inline;
+           float: left;
+           font-size: 16px;
+           height: 38px;
+           line-height: 38px;
+           margin-bottom: 10px;
+           overflow: hidden;
+           text-align: center;
+           width: 38px;
+       }
+       .feedback a:hover {
+           background: none repeat scroll 0 0 #999999;
+           border-color: #999999;
+           color: #FFFFFF;
+       }
+       .feedback .go-top {
+           display: none;
+       }
+       .feedback-fix-ie6 a {
+           bottom: 50px;
+       }
+       .feedback .go-entry{
+           background: #fff url('http://gtms03.alicdn.com/tps/i3/T1Q5mNFkpXXXXt8j_X-16-20.png') no-repeat 10px 10px;
+       }
+       .feedback .go-entry:hover{
+           background: #fff url('http://gtms03.alicdn.com/tps/i3/T1Q5mNFkpXXXXt8j_X-16-20.png') no-repeat 10px 10px;
+       }
+   </style>
+<div class="feedback" id="J_Feedback">
+    <a title="我要找入口" class="iconfont go-entry" id="J_GoEntry" target="_self" href="javascript:;" data-spm-anchor-id="1.6659421.0.0"></a>
+
+    <a title="回到顶部" class="iconfont go-top" id="J_GoTop" target="_self" href="javascript:;" style="display: none;" data-spm-anchor-id="1.6659421.0.0"></a>
+    <a title="查看旧版"  id="J_GoOld" class="iconfont" href="//www.taobao.com/?spm=1.6659421.0.0.hkxujr&amp;v=old" data-spm-anchor-id="1.6659421.0.0">ş</a>
+    <a title="我要反馈" class="iconfont" href="//www.aliway.com/read.php?fid=38&amp;tid=211349"></a>
+</div>
+<script>
+    KISSY.one('#J_GoOld').on('click',function(e){
+          KISSY.one('body').addClass('rollOut');
+    })
+</script>
 </body>
 <script>
     var S = KISSY;
