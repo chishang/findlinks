@@ -122,7 +122,7 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             container.delegate('click', '.J_FindLinks_Click', self._handleClick, self);
             container.delegate('keyup', '.J_FindLinks_Input', self._handleKeyup, self);
             container.delegate('keydown', '.J_FindLinks_Input', self._handleKeydown, self);
-            if (S.UA.IE && S.UA.IE === 6) {
+            if (S.UA.IE  == 6) {
                 var win = S.one(window);
                 win.on('scroll',function(e){
                     container.css('top', S.DOM.scrollTop(win)+self.get('top')) ;
@@ -218,11 +218,6 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             if (result) {
                 var node = result.item(index);
                 if (node) {
-                    var display = node.css('display');
-                    var visibility = node.css('visibility');
-                    var width = node.css('width');
-                    var height = node.css('height');
-
                     self.showFocusResult(node);
                 } else {
                     index--;
@@ -325,9 +320,13 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
                     display: 'block',
                     fontSize: node.css('fontSize'),
                     lineHeight: node.css('lineHeight'),
-                    padding: node.css('padding')
+                    padding: node.css('padding'),
+                    height:node.css('height')=='0px'?'auto':node.css('height'),
+                    width:node.css('width')=='0px'?'auto':node.css('width'),
+                    textAlign:node.css('textAlign')
                 });
                 self.set('cloneNode', cloneNode);
+                node.addClass('findlinks-unvisibility');
                 cloneNode.show();
                 S.later(function () {
                     cloneNode.addClass('findlinks-href-focus');
@@ -359,9 +358,14 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
         _removeCloneNode: function () {
             var self = this;
             var cloneNode = self.get('cloneNode');
-            cloneNode && cloneNode.remove();
             var focusNode = self.get('focusNode');
-            focusNode && focusNode.removeClass('findlinks-href-now');
+            if(cloneNode){
+                cloneNode.remove();
+            }
+            if(focusNode){
+                focusNode.removeClass('findlinks-href-now');
+                focusNode.removeClass('findlinks-unvisibility');
+            }
         },
         _handleSearch: function () {
             var self = this;

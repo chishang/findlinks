@@ -2,10 +2,10 @@
     position: fixed;
     right: 10px;
     top: 278px;
-    height: 52px;
+    height: 50px;
     width: 42px;
     z-index: 10002;
-    position:absolute;
+    _position:absolute;
 }
 
 .findlinks-container a, .findlinks-container a :hover {
@@ -39,12 +39,12 @@
 
 .findlinks-des {
     position: absolute;
-    right: -1px;
-    top: -1px;
+    right: 0px;
+    top: 0px;
     width: 100px;
     padding-right: 25px;
-    height: 50px;
-    line-height: 54px;
+    height: 48px;
+    line-height: 48px;
     font-size: 14px;
     border: 1px solid #cfcfcf;
     background: #fff;
@@ -71,8 +71,11 @@
     margin: 0;
     z-index: 4;
     cursor: default;
+    overflow: hidden;
 }
-
+.findlinks-unvisibility{
+    visibility: hidden;
+}
 .findlinks-down, .findlinks-up, .findlinks-close {
     text-decoration: none;
     display: inline-block;
@@ -82,7 +85,7 @@
     margin: 0px;
     background: url('http://gtms01.alicdn.com/tps/i1/T1oQ1NFdRcXXc1MEEf-102-120.png') no-repeat 5px -5px;
     *position:relative;
-    *top:-8px;
+    *top:-9px;
 }
 
 .findlinks-down {
@@ -143,15 +146,13 @@
     border: 1px solid #e8e8e8;
     width: 236px;
     outline: none;
-    margin-top: -1px;
-    *position: relative;
-    *top: 1px;
     background: #fff;
+    position: relative;
+    top:1px;
 }
 
 .findlinks-input:focus {
     border-color: #9dc3e7;
-
 }
 
 .findlinks-href {
@@ -245,6 +246,8 @@
     background: red !important;
     color: #fff !important;
     z-index: 100001;
+    position: absolute;
+    visibility: visible;
 }
 
 @-webkit-keyframes rollOut {
