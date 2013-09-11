@@ -33,31 +33,6 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             self._bindUI();
             self._bindModelChange();
         },
-        _bindModelChange: function () {
-            var self = this;
-            self.on('afterResultChange', function () {
-                self.showAllResults();
-                self.setTotalNumber();
-                self.setIndexNumber();
-                self.setBtnState();
-
-            });
-            self.on('beforeResultChange', function () {
-                self.set('cloneNode', null);
-                self.hideAllResults();
-            });
-            self.on('beforeIndexChange', function () {
-                self.set('prevIndex', self.get('index'));
-            });
-            self.on('afterIndexChange', function () {
-                self.setIndexNumber();
-                self.setBtnState();
-            });
-            self.on('beforeFocusNodeChange', function () {
-                self._unFocusNode();
-            });
-
-        },
         _createUI: function () {
             var self = this;
             var node = S.DOM.create('<div >' +
@@ -128,6 +103,31 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
                 });
             }
         },
+        _bindModelChange: function () {
+            var self = this;
+            self.on('afterResultChange', function () {
+                self._showAllResults();
+                self._setTotalNumber();
+                self._setIndexNumber();
+                self._setBtnState();
+
+            });
+            self.on('beforeResultChange', function () {
+                self.set('focusNode', null);
+                self._hideAllResults();
+            });
+            self.on('beforeIndexChange', function () {
+                self.set('prevIndex', self.get('index'));
+            });
+            self.on('afterIndexChange', function () {
+                self._setIndexNumber();
+                self._setBtnState();
+            });
+            self.on('beforeFocusNodeChange', function () {
+                self._unFocusNode();
+            });
+
+        },
         _handleIcoHover: function () {
             var self = this;
             self._toggleClick(true);
@@ -169,8 +169,7 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
                 return;
             }
             var text = target.val();
-            self.setResult(text);
-            self.search();
+            self.search(text);
         },
         _handleKeydown: function (e) {
             var self = this;
@@ -182,11 +181,12 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
                 self.findPrev();
             }
         },
-        search: function () {
+        search: function (text) {
             var self = this;
+            self._setSearchText(text);
             self._findResult();
         },
-        setResult: function (text) {
+        _setSearchText: function (text) {
             var self = this;
             var input = self.get('doms.input');
             var text = typeof (text) === 'undefined' ? S.trim(input.val()) : S.trim(text);
@@ -194,9 +194,9 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
                 self.set('result', null);
                 self.set('total', 0);
                 self.set('index', 0);
-                self.setTotalNumber();
-                self.setIndexNumber();
-                self.setBtnState();
+                self._setTotalNumber();
+                self._setIndexNumber();
+                self._setBtnState();
                 return;
             }
             var selector = 'body a:contains("' + text + '")';
@@ -211,13 +211,13 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             var index = self.get('index');
             var isFind = false;
             if (!result) {
-                self.setResult();
+                self._setSearchText();
                 result = self.get('result');
             }
             if (result) {
                 var node = result.item(index);
                 if (node) {
-                    self.showFocusResult(node);
+                    self._showFocusResult(node);
                 } else {
                     index--;
                     self.set('index', index);
@@ -239,19 +239,19 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             self.set('index', index);
             self._findResult();
         },
-        showFocusResult: function (node) {
+        _showFocusResult: function (node) {
             var self = this;
             self._scrollTo(node);
             self._focusNode(node);
         },
-        showAllResults: function () {
+        _showAllResults: function () {
             var self = this;
             var result = self.get('result');
             if (result && result.addClass) {
                 result.addClass('findlinks-href');
             }
         },
-        hideAllResults: function () {
+        _hideAllResults: function () {
             var self = this;
             var result = self.get('result');
             if (result && result.addClass) {
@@ -260,13 +260,13 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             self._hideIco();
             self._unFocusNode();
         },
-        setTotalNumber: function () {
+        _setTotalNumber: function () {
             var self = this;
             var node = self.get('doms.total');
             var total = self.get('total');
             node.html(total);
         },
-        setIndexNumber: function () {
+        _setIndexNumber: function () {
             var self = this;
             var node = self.get('doms.index');
             var index = self.get('index');
@@ -274,7 +274,7 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             var showindex = total > 0 ? index + 1 : 0;
             node.html(showindex);
         },
-        setBtnState: function () {
+        _setBtnState: function () {
             var self = this;
             var search = self.get('doms.search');
             var up = self.get('doms.up');
