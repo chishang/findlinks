@@ -79,13 +79,13 @@
 .findlinks-down, .findlinks-up, .findlinks-close {
     text-decoration: none;
     display: inline-block;
+    *display:inline;
+    *zoom:1;
     width: 32px;
     height: 38px;
     line-height: 38px;
     margin: 0px;
     background: url('http://gtms01.alicdn.com/tps/i1/T1oQ1NFdRcXXc1MEEf-102-120.png') no-repeat 5px -5px;
-    *position:relative;
-    *top:-9px;
 }
 
 .findlinks-down {
