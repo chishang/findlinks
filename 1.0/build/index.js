@@ -367,6 +367,12 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
                 "textAlign": node.css('textAlign'),
                 "lineHeight":lineHeight
             }
+            if(S.UA.ie === 6){
+                S.mix(styles,{
+                    "height": height == '0px' ? 'auto' : height,
+                    "width": width == '0px' ? 'auto' : width
+                });
+            }
             cloneNode.css(styles);
             cloneNode.addClass('findlinks-href-focus');
             cloneNode.appendTo('body');

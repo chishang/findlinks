@@ -28,6 +28,7 @@
     width: 16px;
     line-height: 20px;
     background: url('http://gtms03.alicdn.com/tps/i3/T1Q5mNFkpXXXXt8j_X-16-20.png') no-repeat 0px 0px;
+    _background:none;
     _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=noscale, src="http://gtms03.alicdn.com/tps/i3/T1Q5mNFkpXXXXt8j_X-16-20.png");
     display: none;
     z-index: 10005;
