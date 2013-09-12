@@ -356,7 +356,7 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
                 top: top,
                 fontSize: node.css('fontSize'),
                 padding: node.css('padding'),
-                height: height == '0px' ? 'auto' : height,
+                minHeight: height == '0px' ? 'auto' : height,
                 width: width == '0px' ? 'auto' : width,
                 textAlign: node.css('textAlign'),
                 lineHeight:lineHeight
