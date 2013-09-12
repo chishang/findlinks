@@ -1898,7 +1898,6 @@
 
 <script>
     var S = KISSY;
-    if (S.Config.debug) {
         var srcPath = "../../../";
         S.config({
             packages: [
@@ -1906,12 +1905,11 @@
                     name: "gallery",
                     path: srcPath,
                     charset: "utf-8",
-                    ignorePackageNameInUri: true
+                    ignorePackageNameInUri: true ,
+                    debug:true
                 }
             ]
         });
-    }
-
     S.use('gallery/findlinks/1.0/index', function (S, Found) {
         var found = new Found({
             fireFn:function(a){
