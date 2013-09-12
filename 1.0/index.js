@@ -48,9 +48,9 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
                 '<a href="jasvasript:void(0);"  class="findlinks-close J_FindLinks_Close  J_FindLinks_Click" data-action="close">&nbsp;</a>' +
                 '</div>' +
                 '</div>', {
-                href: '#',
-                id: S.guid('J_FindLinks_'),
-                title: '通过这个功能，您不仅能快速找到需要的链接，还能找到被“深藏”的入口哦~',
+                "href": '#',
+                "id": S.guid('J_FindLinks_'),
+                "title": '通过这个功能，您不仅能快速找到需要的链接，还能找到被“深藏”的入口哦~',
                 "class": 'findlinks-container'
             });
             var focusIco = S.DOM.create('<div></div>', {
@@ -74,17 +74,17 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             var up = container.one('.J_FindLinks_Up');
             var down = container.one('.J_FindLinks_Down');
             self.set('doms', {
-                container: container,
-                search: search,
-                click: click,
-                hover: hover,
-                input: input,
-                ico: ico,
-                focusIco: S.one(focusIco),
-                total: total,
-                index: index,
-                up: up,
-                down: down
+                "container": container,
+                "search": search,
+                "click": click,
+                "hover": hover,
+                    "input": input,
+                "ico": ico,
+                    "focusIco": S.one(focusIco),
+                "total": total,
+                    "index": index,
+                "up": up,
+                    "down": down
             });
         },
 
@@ -343,23 +343,23 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             top = (ttop>0 && top-ttop>0)?top-ttop:top;
 
             self._scrollTo({
-                left:left,
-                top:top
+                "left":left,
+                "top":top
             });
             self._showIco({
-                left:left,
-                top:top
+                "left":left,
+                "top":top
             });
             var styles = {
-                position: 'absolute',
-                left: left,
-                top: top,
-                fontSize: node.css('fontSize'),
-                padding: node.css('padding'),
-                minHeight: height == '0px' ? 'auto' : height,
-                width: width == '0px' ? 'auto' : width,
-                textAlign: node.css('textAlign'),
-                lineHeight:lineHeight
+                "position": 'absolute',
+                "left": left,
+                "top": top,
+                "fontSize": node.css('fontSize'),
+                "padding": node.css('padding'),
+                "minHeight": height == '0px' ? 'auto' : height,
+                "width": width == '0px' ? 'auto' : width,
+                "textAlign": node.css('textAlign'),
+                "lineHeight":lineHeight
             }
             cloneNode.css(styles);
             cloneNode.addClass('findlinks-href-focus');
@@ -373,11 +373,11 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             var left = position.left;
             var  top = position.top;
             if(left === 0 ){
-           var  parent = node.parent();
-                if(parent.prop('tagName') == 'BODY'){
+           var  parentNode = node.parent();
+                if(parentNode.prop('tagName') && parentNode.prop('tagName') == 'BODY'){
                     position = position;
                 }else{
-                    position = self._findPosition(parent);
+                    position = self._findPosition(parentNode);
                 }
             }
             return position;
@@ -390,9 +390,9 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             top = top < 0 ? position.top : top;
             left = top < 0 ? position.left : left - 10;
             focusIco.css({
-                left: left,
-                top: top,
-                display: 'block'
+                "left": left,
+                "top": top,
+                "display": 'block'
             });
         },
         _hideIco: function () {
@@ -456,38 +456,38 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
         }
 
     }, {ATTRS: /** @lends FindLinks*/{
-        doms: {
-            value: {
+        "doms": {
+            "value": {
 
             }
         },
-        result: {
-            value: null
+        "result": {
+            "value": null
         },
-        index: {
-            value: 0,
-            setter: function (index) {
+        "index": {
+            "value": 0,
+            "setter": function (index) {
                 if (index < 0)index = 0;
                 return index;
             }
         },
-        prevIndex: {
-            value: 0
+        "prevIndex": {
+            "value": 0
         },
-        total: {
-            value: 0
+        "total": {
+            "value": 0
         },
-        cloneNode: {
-            value: null
+        "cloneNode": {
+            "value": null
         },
-        focusNode: {
-            value: null
+        "focusNode": {
+            "value": null
         },
-        top: {
-            value: 278
+        "top": {
+            "value": 278
         },
-        fireFn:{
-            value:null
+        "fireFn":{
+            "value":null
         }
 
     }});
