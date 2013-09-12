@@ -3,7 +3,7 @@
     right: 10px;
     top: 278px;
     height: 50px;
-    width: 42px;
+    width: 40px;
     z-index: 10002;
     _position:absolute;
 }
@@ -14,7 +14,7 @@
 
 .findlinks-icowrap {
     height: 48px;
-    width: 40px;
+    width: 38px;
     cursor: pointer;
     border: 1px solid #eee;
     background-color: #fff;
@@ -23,7 +23,7 @@
 .findlinks-ico {
     position: absolute;
     top: 17px;
-    right: 13px;
+    right: 12px;
     height: 20px;
     width: 16px;
     line-height: 20px;
