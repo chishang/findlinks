@@ -330,24 +330,38 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
                 }
             }
             var position = self._findPosition(node);
-            self._scrollTo(position);
-            self._showIco(position);
             node.addClass('findlinks-unvisibility');
             node.addClass('findlinks-href-now');
             self.set('focusNode', node);
             var cloneNode = node.clone(true);
-            cloneNode.css({
-                position: 'absolute',
-                left: position.left,
-                top: position.top,
-                display: 'block',
-                fontSize: node.css('fontSize'),
-                lineHeight: node.css('lineHeight'),
-                padding: node.css('padding'),
-                minHeight: node.css('height') == '0px' ? 'auto' : node.css('height'),
-                minWidth: node.css('width') == '0px' ? 'auto' : node.css('width'),
-                textAlign: node.css('textAlign')
+            var lineHeight = node.css('lineHeight');
+            var top = position.top;
+            var left = position.left;
+            var height = node.css('height');
+            var width = node.css('width');
+            var ttop = (parseInt(lineHeight) - parseInt(height))/2;
+            top = (ttop>0 && top-ttop>0)?top-ttop:top;
+
+            self._scrollTo({
+                left:left,
+                top:top
             });
+            self._showIco({
+                left:left,
+                top:top
+            });
+            var styles = {
+                position: 'absolute',
+                left: left,
+                top: top,
+                fontSize: node.css('fontSize'),
+                padding: node.css('padding'),
+                height: height == '0px' ? 'auto' : height,
+                width: width == '0px' ? 'auto' : width,
+                textAlign: node.css('textAlign'),
+                lineHeight:lineHeight
+            }
+            cloneNode.css(styles);
             cloneNode.addClass('findlinks-href-focus');
             cloneNode.appendTo('body');
             cloneNode.show();
@@ -356,11 +370,10 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
         _findPosition:function(node){
            var self = this;
             var position = node.offset();
-            S.log(position)
             var left = position.left;
             var  top = position.top;
-            if(left === 0 || top ===0){
-                 var parent = node.parent();
+            if(left === 0 ){
+           parent = node.parent();
                 if(parent.prop('tagName') == 'BODY'){
                     position = position;
                 }else{

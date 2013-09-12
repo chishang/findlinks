@@ -29,7 +29,7 @@
     line-height: 20px;
     background: url('http://gtms03.alicdn.com/tps/i3/T1Q5mNFkpXXXXt8j_X-16-20.png') no-repeat 0px 0px;
     display: none;
-    z-index: 100001;
+    z-index: 10005;
 }
 
 .findlinks-container  .findlinks-ico {
@@ -246,7 +246,7 @@
     animation-name: pulse;
     background-color: red !important;
     color: #fff !important;
-    z-index: 10001;
+    z-index: 100000;
     position: absolute;
     visibility: visible;
 }
