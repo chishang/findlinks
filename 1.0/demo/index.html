@@ -225,7 +225,7 @@
         <div class="layout-w">
             <div class="header-tit">
                 <div class="header-tit-logo" data-spm="a1z2x">
-                    <a href="http://trip.taobao.com" target="_self">淘宝旅行</a>
+                    <a href="javascript" target="_self">淘宝旅行</a>
                 </div>
             </div>
             <div class="header-menu">
@@ -2020,16 +2020,7 @@
         background: #fff url('http://gtms03.alicdn.com/tps/i3/T1Q5mNFkpXXXXt8j_X-16-20.png') no-repeat 10px 10px;
     }
 </style>
-<div class="feedback" id="J_Feedback">
-    <a title="我要找入口" class="iconfont go-entry" id="J_GoEntry" target="_self" href="javascript:;"
-       data-spm-anchor-id="1.6659421.0.0"></a>
 
-    <a title="回到顶部" class="iconfont go-top" id="J_GoTop" target="_self" href="javascript:;" style="display: none;"
-       data-spm-anchor-id="1.6659421.0.0"></a>
-    <a title="查看旧版" id="J_GoOld" class="iconfont" href="//www.taobao.com/?spm=1.6659421.0.0.hkxujr&amp;v=old"
-       data-spm-anchor-id="1.6659421.0.0">ş</a>
-    <a title="我要反馈" class="iconfont" href="//www.aliway.com/read.php?fid=38&amp;tid=211349"></a>
-</div>
 <script>
     var S = KISSY;
     if (S.Config.debug) {
@@ -2048,7 +2039,12 @@
 
     S.use('gallery/findlinks/1.0/index', function (S, Found) {
         var found = new Found({
-            top:278
+            fireFn:function(a){
+                var parent = a.parent('.J_TabCol');
+                if(parent){
+                    S.one('.J_NavItemIFlight').fire('click')
+                }
+            }
         });
     });
 </script>

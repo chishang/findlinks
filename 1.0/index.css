@@ -17,7 +17,7 @@
     width: 40px;
     cursor: pointer;
     border: 1px solid #eee;
-    background: #fff;
+    background-color: #fff;
 }
 
 .findlinks-ico {
@@ -47,7 +47,7 @@
     line-height: 48px;
     font-size: 14px;
     border: 1px solid #cfcfcf;
-    background: #fff;
+    background-color: #fff;
     cursor: pointer;
     color: #6c6c6c;
     text-align: center;
@@ -67,7 +67,7 @@
     height: 36px;
     padding: 4px 0 8px 8px;
     border: 1px solid #cfcfcf;
-    background: #eeefef;
+    background-color: #eeefef;
     margin: 0;
     z-index: 4;
     cursor: default;
@@ -130,7 +130,7 @@
 
 .findlinks-numbers {
     color: #CCCCCC;
-    background: #fff;
+    background-color: #fff;
     height: 32px;
     left: 140px;
     line-height: 32px;
@@ -147,7 +147,7 @@
     border: 1px solid #e8e8e8;
     width: 240px;
     outline: none;
-    background: #fff;
+    background-color: #fff;
     position: absolute;
     top:6px;
     left:6px;
@@ -158,12 +158,12 @@
 }
 
 .findlinks-href {
-    background: #ffff00 !important;
+    background-color: #ffff00 !important;
     color: #999 !important;
 }
 
 .findlinks-href-now {
-    background: red !important;
+    background-color: red !important;
     color: #fff !important;
     border-radius: 3px;
 }
@@ -244,9 +244,9 @@
     -ms-animation-name: pulse;
     -o-animation-name: pulse;
     animation-name: pulse;
-    background: red !important;
+    background-color: red !important;
     color: #fff !important;
-    z-index: 100001;
+    z-index: 10001;
     position: absolute;
     visibility: visible;
 }
@@ -309,32 +309,4 @@
         opacity: 0;
         transform: translateX(100%) rotate(120deg);
     }
-}
-
-.rollOut {
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    -ms-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-delay: .2s;
-    -webkit-animation-timing-function: ease;
-    -webkit-animation-fill-mode: both;
-    -moz-animation-duration: 1s;
-    -moz-animation-delay: .2s;
-    -moz-animation-timing-function: ease;
-    -moz-animation-fill-mode: both;
-    -ms-animation-duration: 1s;
-    -ms-animation-delay: .2s;
-    -ms-animation-timing-function: ease;
-    -ms-animation-fill-mode: both;
-    animation-duration: 1s;
-    animation-delay: .2s;
-    animation-timing-function: ease;
-    animation-fill-mode: both;
-    -webkit-animation-name: rollOut;
-    -moz-animation-name: rollOut;
-    -ms-animation-name: rollOut;
-    -o-animation-name: rollOut;
-    animation-name: rollOut;
 }
