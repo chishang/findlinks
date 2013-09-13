@@ -5,7 +5,7 @@
     height: 50px;
     width: 40px;
     z-index: 10002;
-    _position:absolute;
+    _position: absolute;
 }
 
 .findlinks-container a, .findlinks-container a :hover {
@@ -28,7 +28,7 @@
     width: 16px;
     line-height: 20px;
     background: url('http://gtms03.alicdn.com/tps/i3/T1Q5mNFkpXXXXt8j_X-16-20.png') no-repeat 0px 0px;
-    _background:none;
+    _background: none;
     _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=noscale, src="http://gtms03.alicdn.com/tps/i3/T1Q5mNFkpXXXXt8j_X-16-20.png");
     display: none;
     z-index: 10005;
@@ -75,13 +75,15 @@
     cursor: default;
     overflow: hidden;
 }
-.findlinks-unvisibility{
+
+.findlinks-unvisibility {
     visibility: hidden;
 }
+
 .findlinks-down, .findlinks-up, .findlinks-close {
     text-decoration: none;
     position: absolute;
-    top:4px;
+    top: 4px;
     width: 32px;
     height: 38px;
     line-height: 38px;
@@ -90,7 +92,7 @@
 }
 
 .findlinks-down {
-    left:253px;
+    left: 253px;
     background-position: -4px -39px;
 }
 
@@ -104,7 +106,7 @@
 }
 
 .findlinks-up {
-    left:284px;
+    left: 284px;
     background-position: -34px -39px;
 }
 
@@ -151,8 +153,8 @@
     outline: none;
     background-color: #fff;
     position: absolute;
-    top:6px;
-    left:6px;
+    top: 6px;
+    left: 6px;
 }
 
 .findlinks-input:focus {

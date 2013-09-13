@@ -78,13 +78,13 @@ KISSY.add(function (S, Node, Base, Anim) {
                 "search": search,
                 "click": click,
                 "hover": hover,
-                    "input": input,
+                "input": input,
                 "ico": ico,
-                    "focusIco": S.one(focusIco),
+                "focusIco": S.one(focusIco),
                 "total": total,
-                    "index": index,
+                "index": index,
                 "up": up,
-                    "down": down
+                "down": down
             });
         },
 
@@ -216,12 +216,12 @@ KISSY.add(function (S, Node, Base, Anim) {
             }
             if (result) {
                 var node = result.item(index);
-                if (node ) {
+                if (node) {
                     var href = node.attr('href');
                     var isLink = !href.match(/javascript/gi);
-                    if(isLink){
+                    if (isLink) {
                         self._showFocusResult(node);
-                     }else{
+                    } else {
                         self._filterShowResult();
                     }
 
@@ -231,15 +231,15 @@ KISSY.add(function (S, Node, Base, Anim) {
                 }
             }
         },
-        _filterShowResult:function(){
-           var self = this;
-           var index = self.get('index');
-           var prevIndex = self.get('prevIndex');
-           if(prevIndex<=index){
-               self.findNext();
-           }else{
-               self.findPrev();
-           }
+        _filterShowResult: function () {
+            var self = this;
+            var index = self.get('index');
+            var prevIndex = self.get('prevIndex');
+            if (prevIndex <= index) {
+                self.findNext();
+            } else {
+                self.findPrev();
+            }
 
         },
         findPrev: function () {
@@ -315,17 +315,14 @@ KISSY.add(function (S, Node, Base, Anim) {
                 down.removeClass('findlinks-nodownresult');
             }
         },
-        _scrollTo: function (position) {
-                window.scrollTo(0, position.top - 30);
-        },
         _focusNode: function (node) {
             var self = this;
 
             var fireFn = self.get('fireFn');
-            if(fireFn){
-                try{
+            if (fireFn) {
+                try {
                     fireFn(node);
-                }catch(e){
+                } catch (e) {
                     S.log('执行触发事件失败');
                 }
             }
@@ -339,16 +336,11 @@ KISSY.add(function (S, Node, Base, Anim) {
             var left = position.left;
             var height = node.css('height');
             var width = node.css('width');
-            var ttop = (parseInt(lineHeight) - parseInt(height))/2;
-            top = (ttop>0 && top-ttop>0)?top-ttop:top;
-
-            self._scrollTo({
-                "left":left,
-                "top":top
-            });
+            var ttop = (parseInt(lineHeight) - parseInt(height)) / 2;
+            top = (ttop > 0 && top - ttop > 0) ? top - ttop : top;
             self._showIco({
-                "left":left,
-                "top":top
+                "left": left,
+                "top": top
             });
             var styles = {
                 "position": 'absolute',
@@ -359,10 +351,10 @@ KISSY.add(function (S, Node, Base, Anim) {
                 "minHeight": height == '0px' ? 'auto' : height,
                 "minWidth": width == '0px' ? 'auto' : width,
                 "textAlign": node.css('textAlign'),
-                "lineHeight":lineHeight
+                "lineHeight": lineHeight
             }
-            if(S.UA.ie === 6){
-                S.mix(styles,{
+            if (S.UA.ie === 6) {
+                S.mix(styles, {
                     "height": height == '0px' ? 'auto' : height,
                     "width": width == '0px' ? 'auto' : width
                 });
@@ -373,20 +365,23 @@ KISSY.add(function (S, Node, Base, Anim) {
             cloneNode.show();
             self.set('cloneNode', cloneNode);
         },
-        _findPosition:function(node){
-           var self = this;
+        _findPosition: function (node) {
+            var self = this;
             var position = node.offset();
             var left = position.left;
-            var  top = position.top;
-            if(left === 0 ){
-           var  parentNode = node.parent();
-                if(!parentNode ||  parentNode && parentNode.prop('tagName') && parentNode.prop('tagName') == 'BODY'){
-                    position = position;
-                }else{
-                    position = self._findPosition(parentNode);
+            var top = position.top;
+            var result = {
+                left: left,
+                top: top,
+                node: node
+            };
+            if (left === 0) {
+                var parentNode = node.parent();
+                if (parentNode && parentNode.prop('tagName') && parentNode.prop('tagName') !== 'BODY') {
+                    result = self._findPosition(parentNode);
                 }
             }
-            return position;
+            return result;
         },
         _showIco: function (position) {
             var self = this;
@@ -400,6 +395,7 @@ KISSY.add(function (S, Node, Base, Anim) {
                 "top": top,
                 "display": 'block'
             });
+            focusIco.scrollIntoView();
         },
         _hideIco: function () {
             var self = this;
@@ -431,7 +427,7 @@ KISSY.add(function (S, Node, Base, Anim) {
 
             function show() {
                 click.fadeIn(0.3);
-                container.on('mouseleave',function(){
+                container.on('mouseleave', function () {
                     self._toggleClick(false);
                 });
             }
@@ -492,8 +488,8 @@ KISSY.add(function (S, Node, Base, Anim) {
         "top": {
             "value": 278
         },
-        "fireFn":{
-            "value":null
+        "fireFn": {
+            "value": null
         }
 
     }});
