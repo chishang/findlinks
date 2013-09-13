@@ -115,10 +115,12 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
         _bindModelChange: function () {
             var self = this;
             self.on('afterResultChange', function () {
-                self._showAllResults();
-                self._setTotalNumber();
-                self._setIndexNumber();
-                self._setBtnState();
+                if(self.get('result')!==null) {
+                    self._showAllResults();
+                    self._setTotalNumber();
+                    self._setIndexNumber();
+                    self._setBtnState();
+                }
 
             });
             self.on('beforeResultChange', function () {
@@ -162,7 +164,7 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
             self._setSearchText(text);
             self._findResult();
         },
-        _setSearchText: function (text) {
+        _setSearchText: function (text,scope) {
             var self = this;
             var input = self.get('doms.input');
             var text = typeof (text) === 'undefined' ? S.trim(input.val()) : S.trim(text);
@@ -175,8 +177,10 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
                 self._setBtnState();
                 return;
             }
-            var selector = 'body a:contains("' + text + '")';
-            var result = $(selector);
+            var scope =scope || self.get('scope');
+            var selector = 'a:contains("' + text + '")';
+            var content = $(scope);
+            var result =  content.all(selector);
             self.set('total', result.length);
             self.set('result', result);
             self.set('index', 0);
@@ -409,6 +413,7 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
             var container = doms.container;
             var input = doms.input;
             container.fadeOut(0.3);
+            self.set('result', null);
         }
 
 
@@ -451,6 +456,9 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
                 "right": 20,
                 "bottom": 20
             }
+        },
+        scope:{  /*查找范围，按selector方式给出,默认为body*/
+            value: 'body'
         }
 
     }});
