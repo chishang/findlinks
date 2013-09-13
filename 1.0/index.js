@@ -315,6 +315,10 @@ KISSY.add(function (S, Node, Base, Anim) {
                 down.removeClass('findlinks-nodownresult');
             }
         },
+        _scrollTo: function (position) {
+            var self = this;
+            window.scrollTo(0, position.top - 30);
+        },
         _focusNode: function (node) {
             var self = this;
 
@@ -338,6 +342,12 @@ KISSY.add(function (S, Node, Base, Anim) {
             var width = node.css('width');
             var ttop = (parseInt(lineHeight) - parseInt(height)) / 2;
             top = (ttop > 0 && top - ttop > 0) ? top - ttop : top;
+
+            self._scrollTo({
+                "left":left,
+                "top":top
+            });
+
             self._showIco({
                 "left": left,
                 "top": top
@@ -370,17 +380,13 @@ KISSY.add(function (S, Node, Base, Anim) {
             var position = node.offset();
             var left = position.left;
             var top = position.top;
-            var result = {
-                left: left,
-                top: top
-            };
             if (left === 0) {
                 var parentNode = node.parent();
                 if (parentNode && parentNode.prop('tagName') && parentNode.prop('tagName') !== 'BODY') {
-                    result = self._findPosition(parentNode);
+                    position = self._findPosition(parentNode);
                 }
             }
-            return result;
+            return position;
         },
         _showIco: function (position) {
             var self = this;
@@ -394,7 +400,6 @@ KISSY.add(function (S, Node, Base, Anim) {
                 "top": top,
                 "display": 'block'
             });
-            focusIco.scrollIntoView();
         },
         _hideIco: function () {
             var self = this;
@@ -452,7 +457,6 @@ KISSY.add(function (S, Node, Base, Anim) {
                     container.delegate('mouseover', '.J_FindLinks_Ico', self._handleIcoHover, self);
                     container.undelegate('click', '.J_FindLinks_Ico', self._handleClick, self);
                 }, 1000);
-
             }
         }
 
