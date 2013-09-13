@@ -380,7 +380,7 @@ KISSY.add(function (S, Node, Base, Anim) {
             var position = node.offset();
             var left = position.left;
             var top = position.top;
-            if (left === 0) {
+            if (left <= 0) {
                 var parentNode = node.parent();
                 if (parentNode && parentNode.prop('tagName') && parentNode.prop('tagName') !== 'BODY') {
                     position = self._findPosition(parentNode);
