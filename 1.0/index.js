@@ -40,9 +40,9 @@ KISSY.add(function (S, Node, Base, Anim) {
                 '<label class="findlinks-numbers" for="findlinks-input">' +
                 '第<span class="J_FindLinks_Index">0</span>条，共<span class="J_FindLinks_Total">0</span>条' +
                 '</label>' +
-                '<a href="jasvasript:void(0);"  class="findlinks-down J_FindLinks_Down">&nbsp;</a>' +
-                '<a href="jasvasript:void(0);" class="findlinks-up  J_FindLinks_Up">&nbsp;</a>' +
-                '<a href="jasvasript:void(0);"  class="findlinks-close J_FindLinks_Close">&nbsp;</a>' +
+                '<a href="jasvasript:void(0);"  style="text-decoration: none" class="findlinks-down J_FindLinks_Down">&nbsp;</a>' +
+                '<a href="jasvasript:void(0);"   style="text-decoration: none" class="findlinks-up  J_FindLinks_Up">&nbsp;</a>' +
+                '<a href="jasvasript:void(0);"   style="text-decoration: none"  class="findlinks-close J_FindLinks_Close">&nbsp;</a>' +
                 '</div>', {
                 "id": S.guid('J_FindLinks_')
             });

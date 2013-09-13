@@ -42,6 +42,7 @@
     line-height: 38px;
     margin: 0px;
     background: url('http://gtms01.alicdn.com/tps/i1/T1oQ1NFdRcXXc1MEEf-102-120.png') no-repeat 5px -5px;
+    cursor:pointer;
 }
 
 .findlinks-down {
@@ -56,6 +57,7 @@
 .findlinks-noresult .findlinks-down, .findlinks-noresult .findlinks-down:hover, .findlinks-nodownresult, .findlinks-nodownresult:hover {
     cursor: default;
     background-position: -4px 0px;
+    text-decoration: none;
 }
 
 .findlinks-up {
@@ -70,6 +72,7 @@
 .findlinks-noresult .findlinks-up, .findlinks-noresult .findlinks-up:hover, .findlinks-noupresult, .findlinks-noupresult:hover {
     cursor: default;
     background-position: -35px 0px;
+
 }
 
 .findlinks-close {
