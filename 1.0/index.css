@@ -1,29 +1,24 @@
 .findlinks-container {
     position: fixed;
-    right: 10px;
-    top: 278px;
-    height: 50px;
-    width: 40px;
-    z-index: 10002;
     _position: absolute;
+    right: 20px;
+    width: 345px;
+    height: 36px;
+    padding: 4px 0 8px 8px;
+    border: 1px solid #cfcfcf;
+    background-color: #eeefef;
+    margin: 0;
+    z-index: 10001;
+    cursor: default;
+    overflow: hidden;
 }
 
 .findlinks-container a, .findlinks-container a :hover {
     text-decoration: none;
 }
 
-.findlinks-icowrap {
-    height: 48px;
-    width: 38px;
-    cursor: pointer;
-    border: 1px solid #eee;
-    background-color: #fff;
-}
-
 .findlinks-ico {
     position: absolute;
-    top: 17px;
-    right: 12px;
     height: 20px;
     width: 16px;
     line-height: 20px;
@@ -32,48 +27,6 @@
     _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=noscale, src="http://gtms03.alicdn.com/tps/i3/T1Q5mNFkpXXXXt8j_X-16-20.png");
     display: none;
     z-index: 10005;
-}
-
-.findlinks-container  .findlinks-ico {
-    z-index: 3;
-    display: block;
-}
-
-.findlinks-des {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    width: 100px;
-    padding-right: 25px;
-    height: 48px;
-    line-height: 48px;
-    font-size: 14px;
-    border: 1px solid #cfcfcf;
-    background-color: #fff;
-    cursor: pointer;
-    color: #6c6c6c;
-    text-align: center;
-    z-index: 2;
-    display: none;
-}
-
-.findlinks-container  .hidden {
-    display: none;
-}
-
-.findlinks-search {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 345px;
-    height: 36px;
-    padding: 4px 0 8px 8px;
-    border: 1px solid #cfcfcf;
-    background-color: #eeefef;
-    margin: 0;
-    z-index: 4;
-    cursor: default;
-    overflow: hidden;
 }
 
 .findlinks-unvisibility {

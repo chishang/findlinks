@@ -1981,53 +1981,17 @@
     })(document);
 
 </script>
-
+<div id="searchlinks">点击找入口</div>
 <style>
-    .feedback {
-        bottom: 50px;
+    #searchlinks {
         position: fixed;
-        right: 10px;
-    }
-
-    .feedback a {
-        background: none repeat scroll 0 0 whitesmoke;
-        border: 1px solid #D9D9D9;
-        clear: both;
-        color: #9C9C9C;
-        display: inline;
-        float: left;
-        font-size: 16px;
-        height: 38px;
-        line-height: 38px;
-        margin-bottom: 10px;
-        overflow: hidden;
-        text-align: center;
+        bottom: 20px;
+        right: 20px;
         width: 38px;
-    }
-
-    .feedback a:hover {
-        background: none repeat scroll 0 0 #999999;
-        border-color: #999999;
-        color: #FFFFFF;
-    }
-
-    .feedback .go-top {
-        display: none;
-    }
-
-    .feedback-fix-ie6 a {
-        bottom: 50px;
-    }
-
-    .feedback .go-entry {
-        background: #fff url('http://gtms03.alicdn.com/tps/i3/T1Q5mNFkpXXXXt8j_X-16-20.png') no-repeat 10px 10px;
-    }
-
-    .feedback .go-entry:hover {
-        background: #fff url('http://gtms03.alicdn.com/tps/i3/T1Q5mNFkpXXXXt8j_X-16-20.png') no-repeat 10px 10px;
+        height: 48px;
+        border: 1px solid #ccc;
     }
 </style>
-
 <script>
     var S = KISSY;
     var srcPath = "../../../";
@@ -2049,6 +2013,11 @@
                 if (parent) {
                     S.one('.J_NavItemIFlight').fire('click')
                 }
+            },
+            triggerSel: '#searchlinks',
+            position: {
+                right: 20,
+                bottom: 20
             }
         });
     });
