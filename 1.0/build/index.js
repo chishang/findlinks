@@ -78,6 +78,10 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
                 "up": up,
                 "down": down
             });
+            var position = self.get('position');
+            if(position){
+                self.setPosition(position);
+            }
         },
         _bindUI: function () {
             var self = this;
