@@ -15,7 +15,7 @@ gallery/findlinks/1.0/index
  * @author kissy-team<kissy-team@gmail.com>
  * @module found
  **/
-KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
+KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
     var EMPTY = '';
     var $ = Node.all;
 
@@ -386,7 +386,7 @@ KISSY.add('gallery/findlinks/1.0/index', function (S, Node, Base, Anim) {
             var  top = position.top;
             if(left === 0 ){
            var  parentNode = node.parent();
-                if(parentNode.prop('tagName') && parentNode.prop('tagName') == 'BODY'){
+                if(!parentNode ||  parentNode && parentNode.prop('tagName') && parentNode.prop('tagName') == 'BODY'){
                     position = position;
                 }else{
                     position = self._findPosition(parentNode);
