@@ -171,7 +171,7 @@ KISSY.add(function (S, Node, Base, Anim) {
                 self._setBtnState();
                 return;
             }
-            var scope =scope || self.get('scope');
+            var scope = scope || self.get('scope');
             var selector = 'a:contains("' + text + '")';
             var content = $(scope);
             var result =  content.all(selector);
@@ -446,13 +446,13 @@ KISSY.add(function (S, Node, Base, Anim) {
             "value": '#J_Findlinks_Trigger'
         },
         "position": {/*获取元素位置,请传人left或right，bottom或top,必须是数字*/
-            value: {
+            "value": {
                 "right": 20,
                 "bottom": 20
             }
         },
-        scope:{  /*查找范围，按selector方式给出,默认为body*/
-            value: 'body'
+        "scope":{  /*查找范围，按selector方式给出,默认为body*/
+            "value": 'body'
         }
 
     }});
