@@ -63,8 +63,6 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
             body.append(node);
             body.append(focusIco);
             var container = S.one(node);
-            var position = self.get('position');
-            container.css(position);
             var input = container.one('.J_FindLinks_Input');
             var index = container.one('.J_FindLinks_Index');
             var total = container.one('.J_FindLinks_Total');
@@ -81,7 +79,6 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
                 "down": down
             });
         },
-
         _bindUI: function () {
             var self = this;
             var doms = self.get('doms');
@@ -103,19 +100,13 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
             }, self);
             container.delegate('keyup', '.J_FindLinks_Input', self._handleKeyup, self);
             container.delegate('keydown', '.J_FindLinks_Input', self._handleKeydown, self);
-            if (S.UA.ie == 6) {
-                var win = S.one(window);
-                var position = self.get('position');
-                win.on('scroll', function (e) {
-                    var top;
-                    if (position.top) {
-                        top = S.DOM.scrollTop(win) + position.top;
-                    } else if (position.bottom) {
-                        top = S.DOM.scrollTop(win) + S.DOM.viewportHeight() - position.bottom - container.outerHeight();
-                    }
-                    container.css('top', top);
-                });
-            }
+
+        },
+        setPosition:function(position){
+            var self = this;
+            var container = self.get('doms.container');
+            var position = position || self.get('position');
+            container.css(position);
         },
         _bindModelChange: function () {
             var self = this;
