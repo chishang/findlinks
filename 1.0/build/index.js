@@ -378,8 +378,7 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
             var top = position.top;
             var result = {
                 left: left,
-                top: top,
-                node: node
+                top: top
             };
             if (left === 0) {
                 var parentNode = node.parent();
