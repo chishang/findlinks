@@ -40,9 +40,9 @@ KISSY.add(function (S, Node, Base, Anim) {
                 '<label class="findlinks-numbers" for="findlinks-input">' +
                 '第<span class="J_FindLinks_Index">0</span>条，共<span class="J_FindLinks_Total">0</span>条' +
                 '</label>' +
-                '<a href="jasvasript:void(0);"  style="text-decoration: none" class="findlinks-down J_FindLinks_Down">&nbsp;</a>' +
-                '<a href="jasvasript:void(0);"   style="text-decoration: none" class="findlinks-up  J_FindLinks_Up">&nbsp;</a>' +
-                '<a href="jasvasript:void(0);"   style="text-decoration: none"  class="findlinks-close J_FindLinks_Close">&nbsp;</a>' +
+                '<a href="javasript:void(0);"  style="text-decoration: none" class="findlinks-down J_FindLinks_Down">&nbsp;</a>' +
+                '<a href="javasript:void(0);"   style="text-decoration: none" class="findlinks-up  J_FindLinks_Up">&nbsp;</a>' +
+                '<a href="javasript:void(0);"   style="text-decoration: none"  class="findlinks-close J_FindLinks_Close">&nbsp;</a>' +
                 '</div>', {
                 "id": S.guid('J_FindLinks_')
             });
@@ -73,7 +73,7 @@ KISSY.add(function (S, Node, Base, Anim) {
                 "down": down
             });
             var position = self.get('position');
-            if(position){
+            if (position) {
                 self.setPosition(position);
             }
         },
@@ -100,7 +100,7 @@ KISSY.add(function (S, Node, Base, Anim) {
             container.delegate('keydown', '.J_FindLinks_Input', self._handleKeydown, self);
 
         },
-        setPosition:function(position){
+        setPosition: function (position) {
             var self = this;
             var container = self.get('doms.container');
             var position = position || self.get('position');
@@ -109,7 +109,7 @@ KISSY.add(function (S, Node, Base, Anim) {
         _bindModelChange: function () {
             var self = this;
             self.on('afterResultChange', function () {
-                if(self.get('result')!==null) {
+                if (self.get('result') !== null) {
                     self._showAllResults();
                     self._setTotalNumber();
                     self._setIndexNumber();
@@ -158,7 +158,7 @@ KISSY.add(function (S, Node, Base, Anim) {
             self._setSearchText(text);
             self._findResult();
         },
-        _setSearchText: function (text,scope) {
+        _setSearchText: function (text, scope) {
             var self = this;
             var input = self.get('doms.input');
             var text = typeof (text) === 'undefined' ? S.trim(input.val()) : S.trim(text);
@@ -174,7 +174,7 @@ KISSY.add(function (S, Node, Base, Anim) {
             var scope = scope || self.get('scope');
             var selector = 'a:contains("' + text + '")';
             var content = $(scope);
-            var result =  content.all(selector);
+            var result = content.all(selector);
             self.set('total', result.length);
             self.set('result', result);
             self.set('index', 0);
@@ -406,8 +406,11 @@ KISSY.add(function (S, Node, Base, Anim) {
             var doms = self.get('doms');
             var container = doms.container;
             var input = doms.input;
-            container.fadeOut(0.3);
-            self.set('result', null);
+            container.fadeOut(0.5,function(){
+                   container.hide();
+                   self.set('result', null);
+            });
+
         }
 
 
@@ -451,7 +454,7 @@ KISSY.add(function (S, Node, Base, Anim) {
                 "bottom": 20
             }
         },
-        "scope":{  /*查找范围，按selector方式给出,默认为body*/
+        "scope": {  /*查找范围，按selector方式给出,默认为body*/
             "value": 'body'
         }
 

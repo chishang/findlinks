@@ -79,7 +79,7 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
                 "down": down
             });
             var position = self.get('position');
-            if(position){
+            if (position) {
                 self.setPosition(position);
             }
         },
@@ -106,7 +106,7 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
             container.delegate('keydown', '.J_FindLinks_Input', self._handleKeydown, self);
 
         },
-        setPosition:function(position){
+        setPosition: function (position) {
             var self = this;
             var container = self.get('doms.container');
             var position = position || self.get('position');
@@ -115,7 +115,7 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
         _bindModelChange: function () {
             var self = this;
             self.on('afterResultChange', function () {
-                if(self.get('result')!==null) {
+                if (self.get('result') !== null) {
                     self._showAllResults();
                     self._setTotalNumber();
                     self._setIndexNumber();
@@ -164,7 +164,7 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
             self._setSearchText(text);
             self._findResult();
         },
-        _setSearchText: function (text,scope) {
+        _setSearchText: function (text, scope) {
             var self = this;
             var input = self.get('doms.input');
             var text = typeof (text) === 'undefined' ? S.trim(input.val()) : S.trim(text);
@@ -180,7 +180,7 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
             var scope = scope || self.get('scope');
             var selector = 'a:contains("' + text + '")';
             var content = $(scope);
-            var result =  content.all(selector);
+            var result = content.all(selector);
             self.set('total', result.length);
             self.set('result', result);
             self.set('index', 0);
@@ -412,8 +412,11 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
             var doms = self.get('doms');
             var container = doms.container;
             var input = doms.input;
-            container.fadeOut(0.3);
-            self.set('result', null);
+            container.fadeOut(0.5,function(){
+                   container.hide();
+                   self.set('result', null);
+            });
+
         }
 
 
@@ -457,7 +460,7 @@ KISSY.add('gallery/findlinks/1.0/index',function (S, Node, Base, Anim) {
                 "bottom": 20
             }
         },
-        "scope":{  /*查找范围，按selector方式给出,默认为body*/
+        "scope": {  /*查找范围，按selector方式给出,默认为body*/
             "value": 'body'
         }
 

@@ -11,8 +11,11 @@
     z-index: 10001;
     cursor: default;
     overflow: hidden;
+    display: none;
 }
-
+.findlinks-container .hidden{
+    display: none;
+}
 .findlinks-container a, .findlinks-container a :hover {
     text-decoration: none;
 }
